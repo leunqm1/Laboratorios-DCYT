@@ -1,0 +1,11 @@
+import Cl_mEquipos from "./Cl_mEquipos.js";
+export default class Cl_mLaboratorio {
+    private _equipos;
+    constructor();
+    set equipos(lista: Cl_mEquipos[]);
+    get equipos(): Cl_mEquipos[];
+    obtenerEquiposReportados(): Cl_mEquipos[];
+    obtenerEquiposEnMantenimiento(): Cl_mEquipos[];
+    obtenerEquiposDisponiblesEstudiantes(): Cl_mEquipos[];
+}
+//# sourceMappingURL=Cl_mLaboratorio.d.ts.map
