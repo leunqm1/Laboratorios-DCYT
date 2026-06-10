@@ -86,11 +86,11 @@ export default class Cl_vEquipoVista {
         const badge = clon.querySelector(".estado-equipo");
         badge.textContent = equipoDatos.estado;
         if (equipoDatos.estado === 'Reportado')
-            badge.className = "badge bg-danger";
+            badge.className = "badge bg-danger px-2 py-1 rounded-pill";
         else if (equipoDatos.estado === 'Mantenimiento')
-            badge.className = "badge bg-warning";
+            badge.className = "badge bg-warning px-2 py-1 rounded-pill";
         else
-            badge.className = "badge bg-success";
+            badge.className = "badge bg-success px-2 py-1 rounded-pill";
         return clon;
     }
     onMantenimiento(callback) { this.btMantenimiento.onclick = () => callback(); }

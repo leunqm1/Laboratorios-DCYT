@@ -26,7 +26,7 @@ export default class Cl_mLaboratorio {
     }
 
     public contarEquiposInactivos(listaEquipos: Cl_mEquipos[]): number {
-    return listaEquipos.filter(eq => eq.estado === 'reportado' || eq.estado === 'Mantenimiento').length;
+    return listaEquipos.filter(eq => eq.estado === 'Reportado' || eq.estado === 'Mantenimiento').length;
     }
     public calcularPorcentajeDañados(listaEquipos: Cl_mEquipos[]): number {
     const total = listaEquipos.length;
@@ -34,5 +34,8 @@ export default class Cl_mLaboratorio {
     
     const inactivos = this.contarEquiposInactivos(listaEquipos);
     return Math.round((inactivos / total) * 100);
-}   
+    }   
+    public equiposParaEstudiantes(): Cl_mEquipos[] {
+        return this._equipos.filter(equipo => equipo.estado === 'Activo');
+    }
 }

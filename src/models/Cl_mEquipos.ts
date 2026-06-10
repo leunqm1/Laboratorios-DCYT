@@ -44,6 +44,8 @@ export default class Cl_mEquipos {
     }
 
     public set estado(estado: 'Activo' | 'Reportado' | 'Mantenimiento') {
+        if (estado === 'Activo')
+            this._observacion = "";
         this._estado = estado;
     }
     public set meson(meson: string){

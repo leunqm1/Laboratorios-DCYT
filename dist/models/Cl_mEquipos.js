@@ -35,6 +35,8 @@ export default class Cl_mEquipos {
         this._ubicacion = ubicacion;
     }
     set estado(estado) {
+        if (estado === 'Activo')
+            this._observacion = "";
         this._estado = estado;
     }
     set meson(meson) {
