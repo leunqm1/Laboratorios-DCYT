@@ -1,6 +1,7 @@
 import Cl_mLaboratorio from "../models/Cl_mLaboratorio.js";
 import Cl_vEquipo from "../views/Cl_vEquipo.js";
 import Cl_sEquipo from "../services/Cl_sEquipo.js";
+import Cl_mEquipos from "../models/Cl_mEquipos.js";
 
 export default class Cl_cEquipo {
     private _modeloLaboratorio: Cl_mLaboratorio;
@@ -17,7 +18,31 @@ export default class Cl_cEquipo {
         this._vistaEquipo.onResolver(() => { 
             this.procesarAccion('activo'); 
         });
+        this._vistaEquipo.onAgregarEquipo(async (datosNuevos) => {
+            try {
+                console.log("🚀 Subiendo nuevo equipo a MockAPI...", datosNuevos);
+                
+                const nuevoObjetoEquipo = new Cl_mEquipos(
+                    datosNuevos.marca,
+                    datosNuevos.procesador,
+                    datosNuevos.memoria,
+                    datosNuevos.ubicacion,
+                    datosNuevos.meson,
+                    datosNuevos.puesto,
+                    datosNuevos.estado,
+                    datosNuevos.observaciones
+                );
+
+                await this._servicio.agregarEquipo(nuevoObjetoEquipo)
+                this._vistaEquipo.tablaEquipo.dispatchEvent(new CustomEvent('actualizar'));
+                
+            } catch (error) {
+                console.error(error);
+                alert("No se pudo guardar el equipo en el servidor remoto.");
+            }
+        });
     }
+
     private async procesarAccion(nuevoEstado: 'activo' | 'Mantenimiento'): Promise<void> {
         const id = this._vistaEquipo.idEquipo;
 
@@ -25,6 +50,7 @@ export default class Cl_cEquipo {
             alert("Por favor, ingrese el ID del equipo.");
             return;
         }
+        
         const equipo = this._modeloLaboratorio.equipos.find(eq => eq.id === id);
 
         if (equipo) {
@@ -33,7 +59,8 @@ export default class Cl_cEquipo {
             const exito = await this._servicio.actualizarEstadoEquipo(equipo);
             
             if (exito) {
-                this._vistaEquipo.consolaData.dispatchEvent(new Event('actualizar'));
+                console.log("✅ Estado actualizado en MockAPI con éxito.");
+                this._vistaEquipo.tablaEquipo.dispatchEvent(new CustomEvent('actualizar'));
             } else {
                 alert("Error de conexión al guardar los cambios en MockAPI.");
             }

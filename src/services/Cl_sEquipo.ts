@@ -1,3 +1,4 @@
+import { iEquipo } from "../interfaces/Cl_iEquipo.js";
 import Cl_mEquipos from "../models/Cl_mEquipos.js";
 
 export default class Cl_sEquipo {
@@ -12,12 +13,15 @@ export default class Cl_sEquipo {
                 throw new Error(`Error obteniendo equipos de la api: ${response.statusText}`);
             }
             const datosJSON = await response.json();
-            return datosJSON.map((equipo: any) => new Cl_mEquipos(
+            return datosJSON.map((equipo: iEquipo) => new Cl_mEquipos(
                 equipo.marca,
                 equipo.procesador,
                 equipo.memoria,
                 equipo.ubicacion,
+                equipo.meson,
+                equipo.puesto,
                 equipo.estado,
+                equipo.observacion,
                 equipo.id
             ));
         } catch (error) {
@@ -45,7 +49,10 @@ export default class Cl_sEquipo {
                 equipoAgregado.procesador,
                 equipoAgregado.memoria,
                 equipoAgregado.ubicacion,
+                equipoAgregado.meson,
+                equipoAgregado.puesto,
                 equipoAgregado.estado,
+                equipoAgregado.observacion,
                 equipoAgregado.id
             );
         } catch (error) {

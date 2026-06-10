@@ -6,10 +6,7 @@ export default class Cl_cLaboratorio {
     private _servicio;
     private _controladorEquipo;
     constructor(equiposIniciales: Cl_mEquipos[], servicio: Cl_sEquipo);
-    private refrescarDatosDesdeNube;
-    /**
-     * 📊 MUESTRA EL JSON CRUDO DIRECTO EN LA PANTALLA
-     */
     mostrarEquiposEnPantalla(): void;
+    private refrescarDatosDesdeNube;
 }
 //# sourceMappingURL=Cl_cLaboratorio.d.ts.map

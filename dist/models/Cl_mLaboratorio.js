@@ -18,5 +18,15 @@ export default class Cl_mLaboratorio {
     obtenerEquiposDisponiblesEstudiantes() {
         return this._equipos.filter(equipo => equipo.Activo());
     }
+    contarEquiposInactivos(listaEquipos) {
+        return listaEquipos.filter(eq => eq.estado === 'reportado' || eq.estado === 'Mantenimiento').length;
+    }
+    calcularPorcentajeDañados(listaEquipos) {
+        const total = listaEquipos.length;
+        if (total === 0)
+            return 0;
+        const inactivos = this.contarEquiposInactivos(listaEquipos);
+        return Math.round((inactivos / total) * 100);
+    }
 }
 //# sourceMappingURL=Cl_mLaboratorio.js.map

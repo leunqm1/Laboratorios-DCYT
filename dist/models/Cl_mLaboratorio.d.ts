@@ -7,5 +7,7 @@ export default class Cl_mLaboratorio {
     obtenerEquiposReportados(): Cl_mEquipos[];
     obtenerEquiposEnMantenimiento(): Cl_mEquipos[];
     obtenerEquiposDisponiblesEstudiantes(): Cl_mEquipos[];
+    contarEquiposInactivos(listaEquipos: Cl_mEquipos[]): number;
+    calcularPorcentajeDañados(listaEquipos: Cl_mEquipos[]): number;
 }
 //# sourceMappingURL=Cl_mLaboratorio.d.ts.map

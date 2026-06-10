@@ -2,24 +2,138 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Prueba de Conexión MockAPI</title>
+    <title>Prueba de Conexión MockAPI + Interface</title>
 </head>
 <body>
 
-    <h1>⚡ Prueba de Conexión MockAPI</h1>
+    <h1>⚡ Gestión de Equipos - Técnicos (DCyT)</h1>
+    <hr>
+    <h3>Acciones</h3>
+    <div style="margin-bottom: 15px;">
+        <label for="inIdEquipo">ID del Equipo: </label>
+        <input type="text" id="inIdEquipo" placeholder="Ej: 1" style="width: 50px;">
+        <button id="btMantenimiento">🔧 Forzar Mantenimiento</button>
+        <button id="btResolver">✅ Forzar Activación</button>
+        
+        <button id="btToggleFormulario" style="background-color: #007bff; color: white; margin-left: 20px;">➕ Registrar Nuevo Equipo</button>
+    </div>
+
+    <div id="panelFormularioAgregar" style="display: none; background-color: #f9f9f9; padding: 15px; border: 1px solid #ccc; max-width: 850px; margin-bottom: 20px;">
+        <h4>📝 Registro de Nueva Máquina</h4>
+        <form id="formularioEquipo">
+            <input type="text" id="addMarca" placeholder="Marca (Ej: Dell)" required>
+            <input type="text" id="addProcesador" placeholder="Procesador (Ej: i5)" required>
+            <input type="number" id="addMemoria" placeholder="RAM GB (Ej: 8)" required style="width: 80px;">
+            <input type="text" id="addUbicacion" placeholder="Laboratorio (Ej: 1)" required style="width: 100px;">
+            <input type="text" id="addMeson" placeholder="Mesón (Ej: 3)" required style="width: 80px;">
+            <input type="text" id="addPuesto" placeholder="Puesto (Ej: 2)" required style="width: 80px;">
+            <input type="text" id="addObservaciones" placeholder="Observaciones iniciales (Opcional)" style="width: 200px;">
+            
+            <br><br>
+            <button type="submit" style="background-color: #28a745; color: white;">💾 Guardar en MockAPI</button>
+            <button type="button" id="btCancelarRegistro" style="background-color: #dc3545; color: white;">Cancelar</button>
+        </form>
+    </div>
+
     <hr>
 
-    <label for="inIdEquipo">ID del Equipo: </label>
-    <input type="text" id="inIdEquipo" placeholder="Ej: 1">
-    <br><br>
-    
-    <button id="btMantenimiento">🔧 Forzar Mantenimiento</button>
-    <button id="btResolver">✅ Forzar Activación</button>
-    
-    <hr>
+    <h3>Inventario en Tiempo Real (MockAPI):</h3>
 
-    <h3>Respuesta de la API (JSON Crudo):</h3>
-    <pre id="consolaData" style="background: #f0f0f0; padding: 10px; border: 1px solid #ccc;">Cargando datos de internet...</pre>
+    <div id="panelEstadisticas" style="background-color: #f8d7da; color: #721c24; padding: 15px; border: 1px solid #f5c6cb; max-width: 850px; margin-bottom: 15px; border-radius: 4px;">
+        <strong>📈 Reporte Operativo del Laboratorio:</strong> 
+        <span id="lblPorcentajeMantenimiento">Calculando indicadores...</span>
+    </div>
+
+    <div style="background-color: #e9ecef; padding: 10px; border: 1px solid #ccc; max-width: 850px; margin-bottom: 15px; display: flex; gap: 15px; align-items: center;">
+        <strong>🔍 Filtrar por:</strong>
+        
+        <div>
+            <label>Laboratorio:</label>
+            <select id="filtroUbicacion">
+                <option value="todos">Todos</option>
+                <option value="1">Lab 1</option>
+                <option value="2">Lab 2</option>
+                <option value="3">Lab 3</option>
+                <option value="4">Lab 4</option>
+                <option value="5">Lab 5</option>
+                <option value="6">Lab 6</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Procesador:</label>
+            <select id="filtroProcesador">
+                <option value="todos">Todos</option>
+                <option value="i3">i3</option>
+                <option value="i5">i5</option>
+                <option value="i7">i7</option>
+                <option value="Ryzen 5">Ryzen 5</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Memoria:</label>
+            <select id="filtroMemoria">
+                <option value="todos">Todos</option>
+                <option value="8">8 GB</option>
+                <option value="16">16 GB</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Estado:</label>
+            <select id="filtroEstado">
+                <option value="todos">Todos</option>
+                <option value="activo">Activo</option>
+                <option value="reportado">Reportado</option>
+                <option value="Mantenimiento">Mantenimiento</option>
+            </select>
+        </div>
+    </div>
+    
+    <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; max-width: 850px; text-align: left;">
+        <thead>
+            <tr style="background-color: #eee;">
+                <th>ID</th>
+                <th>Marca</th>
+                <th>Procesador</th>
+                <th>Memoria</th>
+                <th>Laboratorio</th>
+                <th>Mesón</th>       
+                <th>Puesto</th>      
+                <th>Observaciones</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="tablaCuerpoEquipos"></tbody>
+    </table>
+
+    <template id="plantillaEquipos">
+        <tr>
+            <td class="id-equipo" style="font-weight: bold;"></td>
+            <td class="marca-equipo"></td>
+            <td class="procesador-equipo"></td>
+            <td class="memoria-equipo"></td>
+            <td class="ubicacion-equipo"></td>
+            <td class="meson-equipo"></td>
+            <td class="puesto-equipo"></td>
+            
+            <td class="observacion-equipo celda-observacion" style="font-style: italic; color: #555;"></td>
+            
+            <td>
+                <span class="estado-equipo"></span>
+            </td>
+        </tr>
+    </template>
+
+    <style>
+        /* Cuando la celda esté vacía, muestra "Sin observaciones" de forma automática */
+        .celda-observacion:empty::before {
+            content: "Sin observaciones";
+            color: #888; /* Un gris más tenue para que se note que es un mensaje automático */
+            font-style: italic;
+        }
+    </style>
 
     <script type="module" src="./dist/principal.js"></script>
 </body>

@@ -9,7 +9,7 @@ export default class Cl_sEquipo {
                 throw new Error(`Error obteniendo equipos de la api: ${response.statusText}`);
             }
             const datosJSON = await response.json();
-            return datosJSON.map((equipo) => new Cl_mEquipos(equipo.marca, equipo.procesador, equipo.memoria, equipo.ubicacion, equipo.estado, equipo.id));
+            return datosJSON.map((equipo) => new Cl_mEquipos(equipo.marca, equipo.procesador, equipo.memoria, equipo.ubicacion, equipo.meson, equipo.puesto, equipo.estado, equipo.observacion, equipo.id));
         }
         catch (error) {
             console.error("Error obteniendo equipos:", error);
@@ -29,7 +29,7 @@ export default class Cl_sEquipo {
                 throw new Error(`Error agregando equipo a la api: ${response.statusText}`);
             }
             const equipoAgregado = await response.json();
-            return new Cl_mEquipos(equipoAgregado.marca, equipoAgregado.procesador, equipoAgregado.memoria, equipoAgregado.ubicacion, equipoAgregado.estado, equipoAgregado.id);
+            return new Cl_mEquipos(equipoAgregado.marca, equipoAgregado.procesador, equipoAgregado.memoria, equipoAgregado.ubicacion, equipoAgregado.meson, equipoAgregado.puesto, equipoAgregado.estado, equipoAgregado.observacion, equipoAgregado.id);
         }
         catch (error) {
             console.error("Error agregando equipo:", error);

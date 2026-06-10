@@ -3,14 +3,20 @@ export default class Cl_mEquipos {
     _procesador;
     _memoria;
     _ubicacion;
+    _meson;
+    _puesto;
     _estado;
+    _observacion;
     _id;
-    constructor(marca, procesador, memoria, ubicacion, estado, id) {
+    constructor(marca, procesador, memoria, ubicacion, meson, puesto, estado, observacion, id) {
         this._marca = marca;
         this._procesador = procesador;
         this._memoria = memoria;
         this._ubicacion = ubicacion;
+        this._meson = meson;
+        this._puesto = puesto;
         this._estado = estado;
+        this._observacion = observacion;
         this._id = id || undefined;
     }
     set id(id) {
@@ -31,6 +37,15 @@ export default class Cl_mEquipos {
     set estado(estado) {
         this._estado = estado;
     }
+    set meson(meson) {
+        this._meson = meson;
+    }
+    set puesto(puesto) {
+        this._puesto = puesto;
+    }
+    set observacion(observacion) {
+        this._observacion = observacion;
+    }
     get id() {
         return this._id;
     }
@@ -48,6 +63,15 @@ export default class Cl_mEquipos {
     }
     get estado() {
         return this._estado;
+    }
+    get meson() {
+        return this._meson;
+    }
+    get puesto() {
+        return this._puesto;
+    }
+    get observacion() {
+        return this._observacion;
     }
     Mantenimiento() {
         if (this._estado === 'Mantenimiento') {
@@ -74,7 +98,10 @@ export default class Cl_mEquipos {
             procesador: this._procesador,
             memoria: this._memoria,
             ubicacion: this._ubicacion,
-            estado: this._estado
+            meson: this._meson,
+            puesto: this._puesto,
+            estado: this._estado,
+            observacion: this._observacion
         };
     }
 }
