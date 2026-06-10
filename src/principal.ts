@@ -5,12 +5,30 @@ import Cl_cLaboratorio from './controllers/Cl_cLaboratorio.js';
 const servicio = new Cl_sEquipo();
 
 const equiposIniciales: Cl_mEquipos[] = [
-    new Cl_mEquipos("Dell",   "i5",      8,  "1", "1", "1", "activo",        ""), // 👈 Vacío
-    new Cl_mEquipos("Hp",     "i7",      16, "2", "1", "2", "reportado",     "No enciende, emite pitidos"),
-    new Cl_mEquipos("Lenovo", "i3",      8,  "3", "2", "1", "activo",        ""), // 👈 Vacío
-    new Cl_mEquipos("Dell",   "i5",      16, "4", "2", "2", "activo",        ""), // 👈 Vacío
-    new Cl_mEquipos("Asus",   "Ryzen 5", 16, "5", "3", "1", "Mantenimiento",  "Actualizando sistema operativo"),
-    new Cl_mEquipos("Hp",     "i5",      8,  "6", "3", "2", "activo",        "")  // 👈 Vacío
+    new Cl_mEquipos("Dell",   "i5",      8,  "1", "1",  "1", "Activo",        ""),
+    new Cl_mEquipos("HP",     "i7",      16, "1", "1",  "2", "Activo",        ""),
+    new Cl_mEquipos("Lenovo", "i3",      4,  "2", "3",  "4", "Mantenimiento",  "En revisión por servicio técnico"),
+    new Cl_mEquipos("Asus",   "i5",      8,  "3", "5",  "2", "Reportado",     "Falla reportada por el estudiante"),
+    new Cl_mEquipos("Dell",   "i3",      1,  "4", "10", "1", "Activo",        ""),
+    new Cl_mEquipos("HP",     "i3",      2,  "5", "8",  "3", "Activo",        ""),
+    new Cl_mEquipos("Lenovo", "i7",      16, "6", "2",  "1", "Mantenimiento",  "En revisión por servicio técnico"),
+    new Cl_mEquipos("Acer",   "i5",      4,  "1", "4",  "4", "Activo",        ""),
+    new Cl_mEquipos("Dell",   "i5",      8,  "2", "7",  "2", "Activo",        ""),
+    new Cl_mEquipos("HP",     "i7",      8,  "3", "6",  "3", "Reportado",     "Falla reportada por el estudiante"),
+    new Cl_mEquipos("Asus",   "i7",      16, "4", "9",  "1", "Activo",        ""),
+    new Cl_mEquipos("Lenovo", "i3",      2,  "5", "1",  "2", "Mantenimiento",  "En revisión por servicio técnico"),
+    new Cl_mEquipos("Acer",   "i5",      4,  "6", "3",  "4", "Activo",        ""),
+    new Cl_mEquipos("Dell",   "i5",      8,  "1", "2",  "3", "Activo",        ""),
+    new Cl_mEquipos("HP",     "i3",      1,  "2", "10", "4", "Reportado",     "Falla reportada por el estudiante"),
+    new Cl_mEquipos("Lenovo", "i7",      16, "3", "5",  "2", "Activo",        ""),
+    new Cl_mEquipos("Asus",   "i3",      4,  "4", "4",  "1", "Activo",        ""),
+    new Cl_mEquipos("Acer",   "i5",      8,  "5", "7",  "3", "Mantenimiento",  "En revisión por servicio técnico"),
+    new Cl_mEquipos("Dell",   "i7",      16, "6", "8",  "2", "Activo",        ""),
+    new Cl_mEquipos("HP",     "i5",      2,  "1", "9",  "1", "Reportado",     "Falla reportada por el estudiante"),
+    new Cl_mEquipos("Lenovo", "i5",      8,  "2", "6",  "4", "Activo",        ""),
+    new Cl_mEquipos("Asus",   "i3",      4,  "3", "1",  "3", "Activo",        ""),
+    new Cl_mEquipos("Acer",   "i3",      1,  "4", "2",  "2", "Mantenimiento",  "En revisión por servicio técnico"),
+    new Cl_mEquipos("Dell",   "i7",      8,  "5", "10", "4", "Activo",        "")
 ];
 
 async function arrancarAplicacion() {

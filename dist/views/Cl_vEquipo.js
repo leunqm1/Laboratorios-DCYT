@@ -60,7 +60,7 @@ export default class Cl_vEquipoVista {
             ubicacion: document.getElementById("addUbicacion").value,
             meson: document.getElementById("addMeson").value,
             puesto: document.getElementById("addPuesto").value,
-            observaciones: document.getElementById("addObservaciones").value,
+            observacion: document.getElementById("addObservacion").value,
             estado: "activo"
         };
     }
@@ -82,10 +82,10 @@ export default class Cl_vEquipoVista {
         clon.querySelector(".memoria-equipo").textContent = equipoDatos.memoria.toString() + " GB";
         clon.querySelector(".meson-equipo").textContent = equipoDatos.meson || "---";
         clon.querySelector(".puesto-equipo").textContent = equipoDatos.puesto || "---";
-        clon.querySelector(".observacion-equipo").textContent = equipoDatos.observaciones || "";
+        clon.querySelector(".observacion-equipo").textContent = equipoDatos.observacion || "";
         const badge = clon.querySelector(".estado-equipo");
         badge.textContent = equipoDatos.estado;
-        if (equipoDatos.estado === 'reportado')
+        if (equipoDatos.estado === 'Reportado')
             badge.className = "badge bg-danger";
         else if (equipoDatos.estado === 'Mantenimiento')
             badge.className = "badge bg-warning";

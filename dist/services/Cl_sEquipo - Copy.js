@@ -9,7 +9,10 @@ export default class Cl_sEquipo {
                 throw new Error(`Error obteniendo equipos de la api: ${response.statusText}`);
             }
             const datosJSON = await response.json();
-            return datosJSON.map((equipo) => new Cl_mEquipos(equipo.marca, equipo.procesador, equipo.memoria, equipo.laboratorio || equipo.ubicacion, equipo.meson, equipo.puesto, equipo.estado, equipo.observacion || equipo.observaciones || "", equipo.id));
+            return datosJSON.map((equipo) => new Cl_mEquipos(equipo.marca, equipo.procesador, equipo.memoria, equipo.laboratorio || equipo.ubicacion, // 🔄 Soporte doble por si acaso para la ubicación
+            equipo.meson, equipo.puesto, equipo.estado, 
+            // 🔴 CORREGIDO: Buscamos en singular, en plural o un string vacío. ¡Así no se pierde nada!
+            equipo.observacion || equipo.observaciones || "", equipo.id));
         }
         catch (error) {
             console.error("Error obteniendo equipos:", error);
@@ -57,4 +60,4 @@ export default class Cl_sEquipo {
         }
     }
 }
-//# sourceMappingURL=Cl_sEquipo.js.map
+//# sourceMappingURL=Cl_sEquipo%20-%20Copy.js.map

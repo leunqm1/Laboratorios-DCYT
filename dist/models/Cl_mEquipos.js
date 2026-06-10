@@ -80,13 +80,13 @@ export default class Cl_mEquipos {
         return false;
     }
     Reportado() {
-        if (this._estado === 'reportado') {
+        if (this._estado === 'Reportado') {
             return true;
         }
         return false;
     }
     Activo() {
-        if (this._estado === 'activo') {
+        if (this._estado === 'Activo') {
             return true;
         }
         return false;

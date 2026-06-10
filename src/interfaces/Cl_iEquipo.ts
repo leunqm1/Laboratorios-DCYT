@@ -6,6 +6,6 @@ export interface iEquipo{
     ubicacion: string;
     meson: string;
     puesto: string;
-    estado: 'activo' | 'reportado' | 'Mantenimiento';
+    estado: 'Activo' | 'Reportado' | 'Mantenimiento';
     observacion: string;
 }

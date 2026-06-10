@@ -5,11 +5,11 @@ export default class Cl_mEquipos {
     private _ubicacion: string;
     private _meson: string;
     private _puesto: string;
-    private _estado: 'activo' | 'reportado' | 'Mantenimiento';
+    private _estado: 'Activo' | 'Reportado' | 'Mantenimiento';
     private _observacion: string;
     private _id?: string | undefined;
 
-    constructor(marca: string, procesador: string, memoria: number, ubicacion: string, meson: string,puesto: string, estado: 'activo' | 'reportado' | 'Mantenimiento', observacion: string, id?: string) {
+    constructor(marca: string, procesador: string, memoria: number, ubicacion: string, meson: string,puesto: string, estado: 'Activo' | 'Reportado' | 'Mantenimiento', observacion: string, id?: string) {
         this._marca = marca;
         this._procesador = procesador;
         this._memoria = memoria;
@@ -43,7 +43,7 @@ export default class Cl_mEquipos {
         this._ubicacion = ubicacion;
     }
 
-    public set estado(estado: 'activo' | 'reportado' | 'Mantenimiento') {
+    public set estado(estado: 'Activo' | 'Reportado' | 'Mantenimiento') {
         this._estado = estado;
     }
     public set meson(meson: string){
@@ -72,7 +72,7 @@ export default class Cl_mEquipos {
     public get ubicacion(): string {
         return this._ubicacion;
     }
-    public get estado(): 'activo' | 'reportado' | 'Mantenimiento' {
+    public get estado(): 'Activo' | 'Reportado' | 'Mantenimiento' {
         return this._estado;
     }
 
@@ -94,14 +94,14 @@ export default class Cl_mEquipos {
     }
 
     public Reportado() {
-        if (this._estado === 'reportado') {
+        if (this._estado === 'Reportado') {
             return true;
         }
         return false;
     }
 
     public Activo() {
-        if (this._estado === 'activo') {
+        if (this._estado === 'Activo') {
             return true;
         }
         return false;

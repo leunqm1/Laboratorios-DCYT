@@ -16,7 +16,7 @@ export default class Cl_cEquipo {
             this.procesarAccion('Mantenimiento'); 
         });
         this._vistaEquipo.onResolver(() => { 
-            this.procesarAccion('activo'); 
+            this.procesarAccion('Activo'); 
         });
         this._vistaEquipo.onAgregarEquipo(async (datosNuevos) => {
             try {
@@ -30,7 +30,7 @@ export default class Cl_cEquipo {
                     datosNuevos.meson,
                     datosNuevos.puesto,
                     datosNuevos.estado,
-                    datosNuevos.observaciones
+                    datosNuevos.observacion
                 );
 
                 await this._servicio.agregarEquipo(nuevoObjetoEquipo)
@@ -43,7 +43,7 @@ export default class Cl_cEquipo {
         });
     }
 
-    private async procesarAccion(nuevoEstado: 'activo' | 'Mantenimiento'): Promise<void> {
+    private async procesarAccion(nuevoEstado: 'Activo' | 'Mantenimiento'): Promise<void> {
         const id = this._vistaEquipo.idEquipo;
 
         if (!id) {

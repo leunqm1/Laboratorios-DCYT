@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Prueba de Conexión MockAPI + Interface</title>
+    <title>Gestión de Equipos - Técnicos (DCyT)</title>
 </head>
 <body>
 
@@ -71,10 +71,13 @@
             </select>
         </div>
 
-        <div>
+<div>
             <label>Memoria:</label>
             <select id="filtroMemoria">
                 <option value="todos">Todos</option>
+                <option value="1">1 GB</option>
+                <option value="2">2 GB</option>
+                <option value="4">4 GB</option>
                 <option value="8">8 GB</option>
                 <option value="16">16 GB</option>
             </select>
@@ -84,8 +87,8 @@
             <label>Estado:</label>
             <select id="filtroEstado">
                 <option value="todos">Todos</option>
-                <option value="activo">Activo</option>
-                <option value="reportado">Reportado</option>
+                <option value="Activo">Activo</option>
+                <option value="Reportado">Reportado</option>
                 <option value="Mantenimiento">Mantenimiento</option>
             </select>
         </div>
@@ -108,7 +111,7 @@
         <tbody id="tablaCuerpoEquipos"></tbody>
     </table>
 
-    <template id="plantillaEquipos">
+<template id="plantillaEquipos">
         <tr>
             <td class="id-equipo" style="font-weight: bold;"></td>
             <td class="marca-equipo"></td>
@@ -126,14 +129,14 @@
         </tr>
     </template>
 
-    <style>
-        /* Cuando la celda esté vacía, muestra "Sin observaciones" de forma automática */
-        .celda-observacion:empty::before {
-            content: "Sin observaciones";
-            color: #888; /* Un gris más tenue para que se note que es un mensaje automático */
-            font-style: italic;
-        }
-    </style>
+<style>
+    /* 🔴 CORREGIDO: Cambiamos .celda-observacion por .observacion-equipo */
+    .observacion-equipo:empty::before {
+        content: "Sin observaciones";
+        color: #888; /* Gris tenue */
+        font-style: italic;
+    }
+</style>
 
     <script type="module" src="./dist/principal.js"></script>
 </body>

@@ -68,7 +68,7 @@ export default class Cl_vEquipoVista {
             ubicacion: (<HTMLInputElement>document.getElementById("addUbicacion")).value,
             meson: (<HTMLInputElement>document.getElementById("addMeson")).value,
             puesto: (<HTMLInputElement>document.getElementById("addPuesto")).value,
-            observaciones: (<HTMLInputElement>document.getElementById("addObservaciones")).value,
+            observacion: (<HTMLInputElement>document.getElementById("addObservacion")).value,
             estado: "activo"
         };
     }
@@ -94,12 +94,12 @@ export default class Cl_vEquipoVista {
         (clon.querySelector(".memoria-equipo") as HTMLElement).textContent = equipoDatos.memoria.toString() + " GB";
         (clon.querySelector(".meson-equipo") as HTMLElement).textContent = equipoDatos.meson || "---";
         (clon.querySelector(".puesto-equipo") as HTMLElement).textContent = equipoDatos.puesto || "---";
-        (clon.querySelector(".observacion-equipo") as HTMLElement).textContent = (equipoDatos as any).observaciones || "";
+        (clon.querySelector(".observacion-equipo") as HTMLElement).textContent = (equipoDatos as any).observacion || "";
         
         const badge = clon.querySelector(".estado-equipo") as HTMLElement;
         badge.textContent = equipoDatos.estado;
 
-        if (equipoDatos.estado === 'reportado') badge.className = "badge bg-danger";
+        if (equipoDatos.estado === 'Reportado') badge.className = "badge bg-danger";
         else if (equipoDatos.estado === 'Mantenimiento') badge.className = "badge bg-warning";
         else badge.className = "badge bg-success";
         

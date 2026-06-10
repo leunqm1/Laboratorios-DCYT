@@ -11,12 +11,12 @@ export default class Cl_cEquipo {
             this.procesarAccion('Mantenimiento');
         });
         this._vistaEquipo.onResolver(() => {
-            this.procesarAccion('activo');
+            this.procesarAccion('Activo');
         });
         this._vistaEquipo.onAgregarEquipo(async (datosNuevos) => {
             try {
                 console.log("🚀 Subiendo nuevo equipo a MockAPI...", datosNuevos);
-                const nuevoObjetoEquipo = new Cl_mEquipos(datosNuevos.marca, datosNuevos.procesador, datosNuevos.memoria, datosNuevos.ubicacion, datosNuevos.meson, datosNuevos.puesto, datosNuevos.estado, datosNuevos.observaciones);
+                const nuevoObjetoEquipo = new Cl_mEquipos(datosNuevos.marca, datosNuevos.procesador, datosNuevos.memoria, datosNuevos.ubicacion, datosNuevos.meson, datosNuevos.puesto, datosNuevos.estado, datosNuevos.observacion);
                 await this._servicio.agregarEquipo(nuevoObjetoEquipo);
                 this._vistaEquipo.tablaEquipo.dispatchEvent(new CustomEvent('actualizar'));
             }

@@ -13,15 +13,16 @@ export default class Cl_sEquipo {
                 throw new Error(`Error obteniendo equipos de la api: ${response.statusText}`);
             }
             const datosJSON = await response.json();
-            return datosJSON.map((equipo: iEquipo) => new Cl_mEquipos(
+            
+            return datosJSON.map((equipo: any) => new Cl_mEquipos(
                 equipo.marca,
                 equipo.procesador,
                 equipo.memoria,
-                equipo.ubicacion,
+                equipo.laboratorio || equipo.ubicacion,
                 equipo.meson,
                 equipo.puesto,
                 equipo.estado,
-                equipo.observacion,
+                equipo.observacion || equipo.observaciones || "", 
                 equipo.id
             ));
         } catch (error) {
@@ -34,7 +35,6 @@ export default class Cl_sEquipo {
         try {
             const response = await fetch(this._urlbase, {
                 method: 'POST',
-                
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -48,20 +48,21 @@ export default class Cl_sEquipo {
                 equipoAgregado.marca,
                 equipoAgregado.procesador,
                 equipoAgregado.memoria,
-                equipoAgregado.ubicacion,
+                equipoAgregado.laboratorio || equipoAgregado.ubicacion,
                 equipoAgregado.meson,
                 equipoAgregado.puesto,
                 equipoAgregado.estado,
-                equipoAgregado.observacion,
+                equipoAgregado.observacion || equipoAgregado.observaciones || "",
                 equipoAgregado.id
             );
         } catch (error) {
             console.error("Error agregando equipo:", error);
             throw error;
-        }}
-        public async actualizarEstadoEquipo(equipo: Cl_mEquipos): Promise<boolean> {
+        }
+    }
+
+    public async actualizarEstadoEquipo(equipo: Cl_mEquipos): Promise<boolean> {
         try {
-           
             const urlEspecifica = `${this._urlbase}/${equipo.id}`;
             
             const response = await fetch(urlEspecifica, {

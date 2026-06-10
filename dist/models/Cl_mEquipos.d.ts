@@ -8,13 +8,13 @@ export default class Cl_mEquipos {
     private _estado;
     private _observacion;
     private _id?;
-    constructor(marca: string, procesador: string, memoria: number, ubicacion: string, meson: string, puesto: string, estado: 'activo' | 'reportado' | 'Mantenimiento', observacion: string, id?: string);
+    constructor(marca: string, procesador: string, memoria: number, ubicacion: string, meson: string, puesto: string, estado: 'Activo' | 'Reportado' | 'Mantenimiento', observacion: string, id?: string);
     set id(id: string);
     set marca(marca: string);
     set procesador(procesador: string);
     set memoria(memoria: number);
     set ubicacion(ubicacion: string);
-    set estado(estado: 'activo' | 'reportado' | 'Mantenimiento');
+    set estado(estado: 'Activo' | 'Reportado' | 'Mantenimiento');
     set meson(meson: string);
     set puesto(puesto: string);
     set observacion(observacion: string);
@@ -23,7 +23,7 @@ export default class Cl_mEquipos {
     get procesador(): string;
     get memoria(): number;
     get ubicacion(): string;
-    get estado(): 'activo' | 'reportado' | 'Mantenimiento';
+    get estado(): 'Activo' | 'Reportado' | 'Mantenimiento';
     get meson(): string;
     get puesto(): string;
     get observacion(): string;
@@ -38,7 +38,7 @@ export default class Cl_mEquipos {
         ubicacion: string;
         meson: string;
         puesto: string;
-        estado: "activo" | "reportado" | "Mantenimiento";
+        estado: "Activo" | "Reportado" | "Mantenimiento";
         observacion: string;
     };
 }
