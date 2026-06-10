@@ -5,25 +5,23 @@ import Cl_mEquipos from "../models/Cl_mEquipos.js";
 import Cl_cEquipo from "./Cl_cEquipo.js";
 
 export default class Cl_cLaboratorio {
-    private _modelo: Cl_mLaboratorio;
-    private _vista: Cl_vEquipo;
-    private _servicio: Cl_sEquipo;
-    private _controladorEquipo: Cl_cEquipo;
+    private modelo: Cl_mLaboratorio;
+    private vista: Cl_vEquipo;
+    private servicio: Cl_sEquipo;
+    private controladorEquipo: Cl_cEquipo;
 
     constructor(equiposIniciales: Cl_mEquipos[], servicio: Cl_sEquipo) {
-        this._modelo = new Cl_mLaboratorio();
-        this._vista = new Cl_vEquipo();
-        this._servicio = servicio;
+        this.modelo = new Cl_mLaboratorio();
+        this.vista = new Cl_vEquipo();
+        this.servicio = servicio;
 
-        this._vista.onCambioFiltro(() => {
+        this.vista.onCambioFiltro(() => {
             this.mostrarEquiposEnPantalla();
         });
 
-        this._modelo.equipos = equiposIniciales;
-        this._controladorEquipo = new Cl_cEquipo(this._modelo, this._vista, this._servicio);
-        
-        
-        this._vista.tablaEquipo.addEventListener('actualizar', async () => {
+        this.modelo.equipos = equiposIniciales;
+        this.controladorEquipo = new Cl_cEquipo(this.modelo, this.vista, this.servicio);
+        this.vista.tablaEquipo.addEventListener('actualizar', async () => {
             await this.refrescarDatosDesdeNube();
         });
 
@@ -32,13 +30,13 @@ export default class Cl_cLaboratorio {
 
     
     public mostrarEquiposEnPantalla(): void {
-        const contenedorHTML = this._vista.tablaEquipo;
+        const contenedorHTML = this.vista.tablaEquipo;
         contenedorHTML.innerHTML = "";
     
-        const filtros = this._vista.valoresFiltros;
+        const filtros = this.vista.valoresFiltros;
     
         
-        let listaFiltrada = this._modelo.equipos.filter(equipo => {
+        let listaFiltrada = this.modelo.equipos.filter(equipo => {
             const cumpleLab = filtros.ubicacion === "todos" || equipo.ubicacion === filtros.ubicacion;
             const cumpleProc = filtros.procesador === "todos" || equipo.procesador === filtros.procesador;
             const cumpleMem = filtros.memoria === "todos" || equipo.memoria.toString() === filtros.memoria;
@@ -48,14 +46,14 @@ export default class Cl_cLaboratorio {
         });
 
         const total = listaFiltrada.length;
-        const inactivos = this._modelo.contarEquiposInactivos(listaFiltrada);
-        const porcentaje = this._modelo.calcularPorcentajeDañados(listaFiltrada);
-        this._vista.actualizarEstadisticas(total, inactivos, porcentaje);
+        const inactivos = this.modelo.contarEquiposInactivos(listaFiltrada);
+        const porcentaje = this.modelo.calcularPorcentajeDañados(listaFiltrada);
+        this.vista.actualizarEstadisticas(total, inactivos, porcentaje);
 
        
         listaFiltrada.forEach(equipo => {
             const datosLimpios = equipo.toJSON();
-            const filaVisual = this._vista.extraerDatos(datosLimpios);
+            const filaVisual = this.vista.extraerDatos(datosLimpios);
             contenedorHTML.appendChild(filaVisual);
         });
     } 
@@ -63,8 +61,8 @@ export default class Cl_cLaboratorio {
     private async refrescarDatosDesdeNube(): Promise<void> {
         console.log("🔄 Sincronizando cambios con MockAPI...");
         
-        const equiposActualizados = await this._servicio.getEquipos();
-        this._modelo.equipos = equiposActualizados;
+        const equiposActualizados = await this.servicio.getEquipos();
+        this.modelo.equipos = equiposActualizados;
         this.mostrarEquiposEnPantalla();
     }
 }

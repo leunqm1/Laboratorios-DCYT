@@ -4,7 +4,7 @@ export default class Cl_vEquipoVista {
     private inIdEquipo: HTMLInputElement;
     private btMantenimiento: HTMLButtonElement;
     private btResolver: HTMLButtonElement;
-    private _consolaData: HTMLElement;
+    private consolaData: HTMLElement;
     private tablaCuerpoEquipo: HTMLElement;
     private btToggleFormulario: HTMLButtonElement;
     private panelFormularioAgregar: HTMLElement;
@@ -20,7 +20,7 @@ export default class Cl_vEquipoVista {
         this.inIdEquipo = <HTMLInputElement>document.getElementById("inIdEquipo");
         this.btMantenimiento = <HTMLButtonElement>document.getElementById("btMantenimiento");
         this.btResolver = <HTMLButtonElement>document.getElementById("btResolver");
-        this._consolaData = <HTMLElement>document.getElementById("consolaData");
+        this.consolaData = <HTMLElement>document.getElementById("consolaData");
         this.tablaCuerpoEquipo = <HTMLElement>document.getElementById("tablaCuerpoEquipos");
         this.btToggleFormulario = <HTMLButtonElement>document.getElementById("btToggleFormulario");
         this.panelFormularioAgregar = <HTMLElement>document.getElementById("panelFormularioAgregar");
@@ -42,7 +42,7 @@ export default class Cl_vEquipoVista {
     }
 
     get idEquipo(): string { return this.inIdEquipo.value; }
-    get consolaData(): HTMLElement { return this._consolaData; }
+    get consolaDatas(): HTMLElement { return this.consolaData; }
     get tablaEquipo(): HTMLElement { return this.tablaCuerpoEquipo; }
 
     get valoresFiltros() {

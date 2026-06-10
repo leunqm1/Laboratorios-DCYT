@@ -2,29 +2,29 @@ import Cl_mLaboratorio from "../models/Cl_mLaboratorio.js";
 import Cl_vEquipo from "../views/Cl_vEquipo.js";
 import Cl_cEquipo from "./Cl_cEquipo.js";
 export default class Cl_cLaboratorio {
-    _modelo;
-    _vista;
-    _servicio;
-    _controladorEquipo;
+    modelo;
+    vista;
+    servicio;
+    controladorEquipo;
     constructor(equiposIniciales, servicio) {
-        this._modelo = new Cl_mLaboratorio();
-        this._vista = new Cl_vEquipo();
-        this._servicio = servicio;
-        this._vista.onCambioFiltro(() => {
+        this.modelo = new Cl_mLaboratorio();
+        this.vista = new Cl_vEquipo();
+        this.servicio = servicio;
+        this.vista.onCambioFiltro(() => {
             this.mostrarEquiposEnPantalla();
         });
-        this._modelo.equipos = equiposIniciales;
-        this._controladorEquipo = new Cl_cEquipo(this._modelo, this._vista, this._servicio);
-        this._vista.tablaEquipo.addEventListener('actualizar', async () => {
+        this.modelo.equipos = equiposIniciales;
+        this.controladorEquipo = new Cl_cEquipo(this.modelo, this.vista, this.servicio);
+        this.vista.tablaEquipo.addEventListener('actualizar', async () => {
             await this.refrescarDatosDesdeNube();
         });
         this.mostrarEquiposEnPantalla();
     }
     mostrarEquiposEnPantalla() {
-        const contenedorHTML = this._vista.tablaEquipo;
+        const contenedorHTML = this.vista.tablaEquipo;
         contenedorHTML.innerHTML = "";
-        const filtros = this._vista.valoresFiltros;
-        let listaFiltrada = this._modelo.equipos.filter(equipo => {
+        const filtros = this.vista.valoresFiltros;
+        let listaFiltrada = this.modelo.equipos.filter(equipo => {
             const cumpleLab = filtros.ubicacion === "todos" || equipo.ubicacion === filtros.ubicacion;
             const cumpleProc = filtros.procesador === "todos" || equipo.procesador === filtros.procesador;
             const cumpleMem = filtros.memoria === "todos" || equipo.memoria.toString() === filtros.memoria;
@@ -32,19 +32,19 @@ export default class Cl_cLaboratorio {
             return cumpleLab && cumpleProc && cumpleMem && cumpleEst;
         });
         const total = listaFiltrada.length;
-        const inactivos = this._modelo.contarEquiposInactivos(listaFiltrada);
-        const porcentaje = this._modelo.calcularPorcentajeDañados(listaFiltrada);
-        this._vista.actualizarEstadisticas(total, inactivos, porcentaje);
+        const inactivos = this.modelo.contarEquiposInactivos(listaFiltrada);
+        const porcentaje = this.modelo.calcularPorcentajeDañados(listaFiltrada);
+        this.vista.actualizarEstadisticas(total, inactivos, porcentaje);
         listaFiltrada.forEach(equipo => {
             const datosLimpios = equipo.toJSON();
-            const filaVisual = this._vista.extraerDatos(datosLimpios);
+            const filaVisual = this.vista.extraerDatos(datosLimpios);
             contenedorHTML.appendChild(filaVisual);
         });
     }
     async refrescarDatosDesdeNube() {
         console.log("🔄 Sincronizando cambios con MockAPI...");
-        const equiposActualizados = await this._servicio.getEquipos();
-        this._modelo.equipos = equiposActualizados;
+        const equiposActualizados = await this.servicio.getEquipos();
+        this.modelo.equipos = equiposActualizados;
         this.mostrarEquiposEnPantalla();
     }
 }

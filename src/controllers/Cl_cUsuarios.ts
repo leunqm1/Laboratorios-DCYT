@@ -4,29 +4,29 @@ import Cl_sEquipo from "../services/Cl_sEquipo.js";
 import Cl_mEquipos from "../models/Cl_mEquipos.js";
 
 export default class Cl_cUsuarios {
-    private _modelo: Cl_mLaboratorio;
-    private _vista: Cl_vUsuarios;
-    private _servicio: Cl_sEquipo;
+    private modelo: Cl_mLaboratorio;
+    private vista: Cl_vUsuarios;
+    private servicio: Cl_sEquipo;
 
     constructor(equiposIniciales: Cl_mEquipos[], servicio: Cl_sEquipo) {
-        this._modelo = new Cl_mLaboratorio();
-        this._vista = new Cl_vUsuarios();
-        this._servicio = servicio;
+        this.modelo = new Cl_mLaboratorio();
+        this.vista = new Cl_vUsuarios();
+        this.servicio = servicio;
 
-        this._modelo.equipos = equiposIniciales;
+        this.modelo.equipos = equiposIniciales;
 
-        this._vista.onCambioFiltro(() => {
+        this.vista.onCambioFiltro(() => {
             this.mostrarEquiposEnPantalla();
         });
 
-        this._vista.onReportarFalla(async () => {
-            const id = this._vista.idEquipo;
+        this.vista.onReportarFalla(async () => {
+            const id = this.vista.idEquipo;
             if (!id) {
                 alert("Por favor, ingrese el ID del equipo.");
                 return;
             }
 
-            const equipo = this._modelo.equipos.find(eq => eq.id === id);
+            const equipo = this.modelo.equipos.find(eq => eq.id === id);
             if (equipo) {
                 equipo.estado = 'Reportado'; 
                 
@@ -37,7 +37,7 @@ export default class Cl_cUsuarios {
 
                 console.log(`⚠️ Registrando reporte en MockAPI para el equipo ID: ${id}...`);
                 
-                const exito = await this._servicio.actualizarEstadoEquipo(equipo);
+                const exito = await this.servicio.actualizarEstadoEquipo(equipo);
                 if (exito) {
                   
                     const modal = document.getElementById("modal-reporte") as HTMLElement;
@@ -63,13 +63,13 @@ export default class Cl_cUsuarios {
 
   
    public mostrarEquiposEnPantalla(): void {
-    const contenedorHTML = this._vista.tablaEquipo;
+    const contenedorHTML = this.vista.tablaEquipo;
     if (!contenedorHTML) return;
     
     contenedorHTML.innerHTML = "";
-    const filtros = this._vista.valoresFiltros;
+    const filtros = this.vista.valoresFiltros;
 
-    const equiposDisponibles = this._modelo.equiposParaEstudiantes();
+    const equiposDisponibles = this.modelo.equiposParaEstudiantes();
 
     console.log("🔍 Filtros detectados en el DOM al renderizar:", filtros);
 
@@ -87,7 +87,7 @@ export default class Cl_cUsuarios {
 
   
     listaFiltrada.forEach(equipo => {
-        const tarjetaVisual = this._vista.extraerDatos(equipo.toJSON(), (idSeleccionado) => {
+        const tarjetaVisual = this.vista.extraerDatos(equipo.toJSON(), (idSeleccionado) => {
             console.log(`Abriendo modal de reportes para el equipo: ${idSeleccionado}`);
         });
         
@@ -98,8 +98,8 @@ export default class Cl_cUsuarios {
     private async refrescarDatosDesdeNube(): Promise<void> {
         console.log("🔄 Sincronizando catálogo con los cambios de MockAPI...");
         try {
-            const equiposActualizados = await this._servicio.getEquipos();
-            this._modelo.equipos = equiposActualizados;
+            const equiposActualizados = await this.servicio.getEquipos();
+            this.modelo.equipos = equiposActualizados;
             this.mostrarEquiposEnPantalla();
         } catch (error) {
             console.error("❌ Error de sincronización asíncrona:", error);

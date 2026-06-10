@@ -2,7 +2,7 @@ export default class Cl_vEquipoVista {
     inIdEquipo;
     btMantenimiento;
     btResolver;
-    _consolaData;
+    consolaData;
     tablaCuerpoEquipo;
     btToggleFormulario;
     panelFormularioAgregar;
@@ -17,7 +17,7 @@ export default class Cl_vEquipoVista {
         this.inIdEquipo = document.getElementById("inIdEquipo");
         this.btMantenimiento = document.getElementById("btMantenimiento");
         this.btResolver = document.getElementById("btResolver");
-        this._consolaData = document.getElementById("consolaData");
+        this.consolaData = document.getElementById("consolaData");
         this.tablaCuerpoEquipo = document.getElementById("tablaCuerpoEquipos");
         this.btToggleFormulario = document.getElementById("btToggleFormulario");
         this.panelFormularioAgregar = document.getElementById("panelFormularioAgregar");
@@ -36,7 +36,7 @@ export default class Cl_vEquipoVista {
         this.panelFormularioAgregar.style.display = estaOculto ? "block" : "none";
     }
     get idEquipo() { return this.inIdEquipo.value; }
-    get consolaData() { return this._consolaData; }
+    get consolaDatas() { return this.consolaData; }
     get tablaEquipo() { return this.tablaCuerpoEquipo; }
     get valoresFiltros() {
         return {

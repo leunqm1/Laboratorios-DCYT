@@ -1,24 +1,24 @@
 import Cl_mLaboratorio from "../models/Cl_mLaboratorio.js";
 import Cl_vUsuarios from "../views/Cl_vUsuarios.js";
 export default class Cl_cUsuarios {
-    _modelo;
-    _vista;
-    _servicio;
+    modelo;
+    vista;
+    servicio;
     constructor(equiposIniciales, servicio) {
-        this._modelo = new Cl_mLaboratorio();
-        this._vista = new Cl_vUsuarios();
-        this._servicio = servicio;
-        this._modelo.equipos = equiposIniciales;
-        this._vista.onCambioFiltro(() => {
+        this.modelo = new Cl_mLaboratorio();
+        this.vista = new Cl_vUsuarios();
+        this.servicio = servicio;
+        this.modelo.equipos = equiposIniciales;
+        this.vista.onCambioFiltro(() => {
             this.mostrarEquiposEnPantalla();
         });
-        this._vista.onReportarFalla(async () => {
-            const id = this._vista.idEquipo;
+        this.vista.onReportarFalla(async () => {
+            const id = this.vista.idEquipo;
             if (!id) {
                 alert("Por favor, ingrese el ID del equipo.");
                 return;
             }
-            const equipo = this._modelo.equipos.find(eq => eq.id === id);
+            const equipo = this.modelo.equipos.find(eq => eq.id === id);
             if (equipo) {
                 equipo.estado = 'Reportado';
                 const txtObservacion = document.getElementById("inp-descripcion-reporte").value;
@@ -26,7 +26,7 @@ export default class Cl_cUsuarios {
                     ? txtObservacion
                     : "Falla reportada por el usuario desde el panel público.";
                 console.log(`⚠️ Registrando reporte en MockAPI para el equipo ID: ${id}...`);
-                const exito = await this._servicio.actualizarEstadoEquipo(equipo);
+                const exito = await this.servicio.actualizarEstadoEquipo(equipo);
                 if (exito) {
                     const modal = document.getElementById("modal-reporte");
                     if (modal)
@@ -47,12 +47,12 @@ export default class Cl_cUsuarios {
         }, 50);
     }
     mostrarEquiposEnPantalla() {
-        const contenedorHTML = this._vista.tablaEquipo;
+        const contenedorHTML = this.vista.tablaEquipo;
         if (!contenedorHTML)
             return;
         contenedorHTML.innerHTML = "";
-        const filtros = this._vista.valoresFiltros;
-        const equiposDisponibles = this._modelo.equiposParaEstudiantes();
+        const filtros = this.vista.valoresFiltros;
+        const equiposDisponibles = this.modelo.equiposParaEstudiantes();
         console.log("🔍 Filtros detectados en el DOM al renderizar:", filtros);
         let listaFiltrada = equiposDisponibles.filter(equipo => {
             const cumpleLab = !filtros.ubicacion || filtros.ubicacion === "todos" || equipo.ubicacion === filtros.ubicacion;
@@ -62,7 +62,7 @@ export default class Cl_cUsuarios {
         });
         console.log(`📊 Cantidad de equipos que superaron los filtros: ${listaFiltrada.length}`);
         listaFiltrada.forEach(equipo => {
-            const tarjetaVisual = this._vista.extraerDatos(equipo.toJSON(), (idSeleccionado) => {
+            const tarjetaVisual = this.vista.extraerDatos(equipo.toJSON(), (idSeleccionado) => {
                 console.log(`Abriendo modal de reportes para el equipo: ${idSeleccionado}`);
             });
             contenedorHTML.appendChild(tarjetaVisual);
@@ -71,8 +71,8 @@ export default class Cl_cUsuarios {
     async refrescarDatosDesdeNube() {
         console.log("🔄 Sincronizando catálogo con los cambios de MockAPI...");
         try {
-            const equiposActualizados = await this._servicio.getEquipos();
-            this._modelo.equipos = equiposActualizados;
+            const equiposActualizados = await this.servicio.getEquipos();
+            this.modelo.equipos = equiposActualizados;
             this.mostrarEquiposEnPantalla();
         }
         catch (error) {

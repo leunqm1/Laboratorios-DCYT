@@ -3,7 +3,7 @@ export default class Cl_vEquipoVista {
     private inIdEquipo;
     private btMantenimiento;
     private btResolver;
-    private _consolaData;
+    private consolaData;
     private tablaCuerpoEquipo;
     private btToggleFormulario;
     private panelFormularioAgregar;
@@ -17,7 +17,7 @@ export default class Cl_vEquipoVista {
     constructor();
     private conmutarFormulario;
     get idEquipo(): string;
-    get consolaData(): HTMLElement;
+    get consolaDatas(): HTMLElement;
     get tablaEquipo(): HTMLElement;
     get valoresFiltros(): {
         ubicacion: string;
